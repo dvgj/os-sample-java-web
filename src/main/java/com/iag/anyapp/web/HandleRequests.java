@@ -38,10 +38,14 @@ public class HandleRequests extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
-			String url = "postgresql://postgresql:5432/crods";
+			/*
+			String url = "jdbc:postgresql://postgresql:5432/crods";
 			String username = "james";
 			String password = "password";
-
+			 */
+			String url = "jdbc:postgresql://localhost:5432/crods";
+			String username = "postgres";
+			String password = "admin";
 			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(url, username, password);
 
