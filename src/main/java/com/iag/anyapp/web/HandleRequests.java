@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,14 +38,14 @@ public class HandleRequests extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		try {
-			FileInputStream fis = new FileInputStream("/data/test.txt");
-			byte buf[] = new byte[fis.available()];
-			
-			fis.read(buf);
-			
-			fis.close();
-			
-			resp.getWriter().println(new String(buf));
+			String url = "postgresql://postgresql:5432/crods";
+			String username = "james";
+			String password = "password";
+
+			Class.forName("org.postgresql.Driver");
+			Connection conn = DriverManager.getConnection(url, username, password);
+
+			resp.getWriter().print(conn);
 			
 		} catch (Exception e) {
 			e.printStackTrace(resp.getWriter());
