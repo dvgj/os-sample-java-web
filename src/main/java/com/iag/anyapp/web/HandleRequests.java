@@ -39,7 +39,7 @@ public class HandleRequests extends HttpServlet {
 
 		try {
 			
-			String url = "jdbc:postgresql://postgresql:5432/";//"jdbc:postgresql://localhost:5432/crods";
+			String url = "jdbc:postgresql://127.0.0.1:5432/crods";//"jdbc:postgresql://localhost:5432/crods";
 			String username = "james";
 			String password = "password";
 			/* 
