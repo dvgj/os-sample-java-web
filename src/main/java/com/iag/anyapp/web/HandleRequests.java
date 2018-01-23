@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,8 +42,9 @@ public class HandleRequests extends HttpServlet {
 
 		try {
 			String reqhost = req.getParameter("host");
+			Properties prop = System.getProperties();
 			String hostname = System.getProperty("OPENSHIFT_POSTGRESQL_DB_HOST");
-			w.println("DB Host " + hostname);
+			w.println("Properties " + prop);
 			String url = "jdbc:postgresql://" + reqhost + ":5432/crods";//"jdbc:postgresql://localhost:5432/crods";
 			String username = "james";
 			String password = "password";
