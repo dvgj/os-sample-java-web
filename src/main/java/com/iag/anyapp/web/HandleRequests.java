@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.ArrayList;
@@ -36,10 +37,13 @@ public class HandleRequests extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		PrintWriter w = resp.getWriter();
 
 		try {
-			
-			String url = "jdbc:postgresql://127.0.0.1:5432/crods";//"jdbc:postgresql://localhost:5432/crods";
+			String reqhost = req.getParameter("host");
+			String hostname = System.getProperty("OPENSHIFT_POSTGRESQL_DB_HOST");
+			w.println("DB Host " + hostname);
+			String url = "jdbc:postgresql://" + reqhost + ":5432/crods";//"jdbc:postgresql://localhost:5432/crods";
 			String username = "james";
 			String password = "password";
 			/* 
@@ -50,10 +54,12 @@ public class HandleRequests extends HttpServlet {
 			Class.forName("org.postgresql.Driver");
 			Connection conn = DriverManager.getConnection(url, username, password);
 
-			resp.getWriter().print(conn);
+			w.print(conn);
 			
 		} catch (Exception e) {
-			e.printStackTrace(resp.getWriter());
+			e.printStackTrace(w);
+		} finally {
+			w.close();
 		}
 	} 
 	
