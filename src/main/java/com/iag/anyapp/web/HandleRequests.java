@@ -44,7 +44,11 @@ public class HandleRequests extends HttpServlet {
 			String reqhost = req.getParameter("host");
 			Properties prop = System.getProperties();
 			String hostname = System.getProperty("OPENSHIFT_POSTGRESQL_DB_HOST");
+			w.println("hostval " + hostname);
 			w.println("Properties " + prop);
+			if (reqhost == null && hostname != null) {
+				reqhost = hostname;
+			}
 			String url = "jdbc:postgresql://" + reqhost + ":5432/crods";//"jdbc:postgresql://localhost:5432/crods";
 			String username = "james";
 			String password = "password";
@@ -58,10 +62,12 @@ public class HandleRequests extends HttpServlet {
 
 			w.print(conn);
 			
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace(w);
 		} finally {
 			w.close();
+			
 		}
 	} 
 	
